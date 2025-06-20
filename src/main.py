@@ -3,6 +3,8 @@ from sensor import EntrySensor, ExitSensor
 from display import Display
 from pathlib import Path
 
+# This comment is purely for PR making purposes.
+
 # Create a car park object with the location moondalup, capacity 100, and log_file "moondalup.txt"
 car_park = CarPark(location="moondalup", capacity=100, log_file=Path("moondalup.txt"))
 
