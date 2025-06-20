@@ -1,4 +1,5 @@
 import unittest
+import json
 from pathlib import Path
 from car_park import CarPark
 
@@ -70,6 +71,23 @@ class TestCarPark(unittest.TestCase):
         self.assertIn("NEW-001", last_line)
         self.assertIn("exited", last_line)
         self.assertIn("\n", last_line)
+
+    def test_car_park_is_loaded_from_config(self):
+        config_path = Path("temp_config.json")
+        config_data = {
+            "location": "Loaded from config",
+            "capacity": 50,
+            "log_file": "log_from_config.txt"
+        }
+        with config_path.open("w") as f:
+            json.dump(config_data, f)
+
+        car_park = CarPark.from_config(config_path)
+        self.assertEqual(car_park.location, "Loaded from config")
+        self.assertEqual(car_park.capacity, 50)
+        self.assertEqual(str(car_park.log_file), "log_from_config.txt")
+
+        config_path.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
